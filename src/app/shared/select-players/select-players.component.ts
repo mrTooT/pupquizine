@@ -13,7 +13,7 @@ import {IonReorderGroup} from '@ionic/angular';
 export class SelectPlayersComponent {
   players: Observable<Player[]>;
   playersRef: AngularFireList<any>;
-  @ViewChild(IonReorderGroup, { static: false }) reorderGroup: IonReorderGroup;
+  @ViewChild(IonReorderGroup) reorderGroup: IonReorderGroup;
   @Output() public playersSelected = new EventEmitter();
 
   constructor(db: AngularFireDatabase) {
