@@ -7,17 +7,31 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-list *ngIf="players">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="newPlayer = true">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list *ngIf="players && !newPlayer">
     <ng-container *ngFor="let player of players | async">
       <ion-item>
-        <ion-avatar  *ngIf="player.photo" slot="start">
+        <ion-avatar *ngIf="player.photo" slot="start">
           <img [src]="player.photo">
         </ion-avatar>
         <ion-label *ngIf="player.name">
           <h2>{{player.name}}</h2>
-          <h3>Schade: &euro; {{player.balance ? player.balance.toFixed(2): 0}}</h3>
+          <h3>Score: {{player.score ? player.score: 0}}</h3>
         </ion-label>
       </ion-item>
     </ng-container>
     </ion-list>
+  <ion-card *ngIf="newPlayer">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label>Registreer een nieuwe loser <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="newPlayerName" placeholder="Enter Input"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button class="has-margin" (click)="onAddPlayer()">Voeg me toe</ion-button>
+  </ion-card>
 </ion-content>
