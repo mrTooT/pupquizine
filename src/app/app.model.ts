@@ -1,9 +1,8 @@
 export interface Player {
+    key?: any;
+    id: number;
     name: string;
     photo?: string;
     score?: number;
-    guess?: number;
-    actual?: number;
-    rebuyCount?: number;
 }
 

@@ -1,19 +1,19 @@
 <ion-header translucent>
   <ion-toolbar>
     <ion-title>
-      Losers
+      Hi Losers, welkom bij de Pubquiz
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="newPlayer = true">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-list *ngIf="players && !newPlayer">
-    <ng-container *ngFor="let player of players | async">
+<!--  <ion-fab vertical="top" horizontal="end" slot="fixed">-->
+<!--    <ion-fab-button (click)="!isLoggedIn = true">-->
+<!--      <ion-icon name="add"></ion-icon>-->
+<!--    </ion-fab-button>-->
+<!--  </ion-fab>-->
+  <ion-list *ngIf="players && isLoggedIn">
+    <ng-container *ngFor="let player of players">
       <ion-item>
         <ion-avatar *ngIf="player.photo" slot="start">
           <img [src]="player.photo">
@@ -24,12 +24,35 @@
         </ion-label>
       </ion-item>
     </ng-container>
-    </ion-list>
-  <ion-card *ngIf="newPlayer">
+    <ion-card>
+      <div>Vul hieronder je score in: </div>
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        <ion-item>
+          <ion-label>Punten: <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input  [(ngModel)]="score" placeholder="Wij hebben zo weinig punten gehaald.."></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button class="has-margin" (click)="addScoreForPlayer()">Punten verzenden</ion-button>
+    </ion-card>
+  </ion-list>
+  <div *ngIf="isLoggedIn" class="has-margin">
+    <span>Oeps, ik ben echt heel stom. Ik wil opnieuw beginnen</span>
+    <ion-button class="has-margin" (click)="onDeletePlayer()">Opnieuw proberen? </ion-button>
+  </div>
+  <ion-card *ngIf="!isLoggedIn">
+    <div class="centered-video">
+      <video width="320" height="240" controls>
+        <source src="assets/losers.mov" type="video/mp4">
+      </video>
+    </div>
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
-        <ion-label>Registreer een nieuwe loser <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input  [(ngModel)]="newPlayerName" placeholder="Enter Input"></ion-input>
+        <ion-label>Teamnaam: <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="newPlayerName" placeholder="Onze briljante teamnaam is..."></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Foto: <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="newPlayerImgUrl" placeholder="Voeg als je wil een photolink toe"></ion-input>
       </ion-item>
     </ion-list>
     <ion-button class="has-margin" (click)="onAddPlayer()">Voeg me toe</ion-button>
